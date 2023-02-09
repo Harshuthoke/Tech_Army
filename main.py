@@ -25,3 +25,24 @@ data.isna().sum().sum()
 data[pd.isnull(data).any(axis=1)]
 summary('WRI','WRI Category',2020)
 summary('Vulnerability','Vulnerability Category',2019)
+#patch-2
+summary('Vulnerability','Vulnerability Category',2016)
+data['Year']= data['Year'].astype('str')
+def top10(year):
+    return data[data['Year']==year].sort_values(by='WRI')[::-1].head(10)
+def bottom10(year):
+    return data[data['Year']==year].sort_values(by='WRI').head(10)
+    years= np.sort(data['Year'].unique())[::-1]
+    fig, axs = plt.subplots(nrows=2, ncols=5, figsize=(24, 12))
+    plt.subplots_adjust(left=0.2, bottom=0, right=1, top=1, wspace=0, hspace=0.5)
+
+    for ax,i in zip(axs.ravel(),years):
+    ax.bar(top10(i)['Region'],top10(i)['WRI'],)
+    ax.set_title(i)
+    ax.tick_params(labelrotation=90)
+    ax.set_ylim([0,55])
+    sns.despine()
+
+plt.show()
+   
+data.describe()
