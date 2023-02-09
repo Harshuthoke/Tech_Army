@@ -59,3 +59,38 @@ for ax,i in zip(axs.ravel(),years):
     sns.despine()
 plt.show()
 data.describe()
+ys = ['WRI','Exposure','Vulnerability','Susceptibility','Lack of Coping Capabilities',' Lack of Adaptive Capacities']
+fig, axs = plt.subplots(nrows=2, ncols=3, figsize=(15, 12))
+for ax,i in zip(axs.ravel(),ys):
+    az.plot_kde(data[i],fill_kwargs={"alpha":0.5},ax=ax)
+    ax.set_title(i)
+    sns.despine()
+plt.show()
+import warnings
+warnings.filterwarnings("ignore")
+ys = ['WRI','Exposure','Vulnerability','Susceptibility','Lack of Coping Capabilities',' Lack of Adaptive Capacities']
+fig, axs = plt.subplots(nrows=2, ncols=3, figsize=(15, 12))
+for ax,i in zip(axs.ravel(),ys):
+    sns.boxplot(data[i],ax=ax)
+    ax.set_title(i)
+    sns.despine()
+plt.show()
+sns.heatmap(data.corr(), annot=True,linewidths=.5)
+sns.pairplot(data=data)
+
+plt.show()
+ys = ['WRI','Exposure','Vulnerability','Susceptibility']
+fig, ((a,b),(c,d)) = plt.subplots (2, 2, figsize=(12, 12))
+for i,t in zip(ys,[a,b,c,d]):
+    sns.boxplot(x=i+' Category', y=i,data=data.sort_values(by=i), ax = t)
+    t.legend(ncol=3)
+    t.set_title(i)
+sns.despine()
+ys = ['WRI','Exposure','Vulnerability','Susceptibility']
+fig, ((a,b),(c,d)) = plt.subplots (2, 2, figsize=(12, 12))
+for i,t in zip(ys,[a,b,c,d]):
+    sns.violinplot(x=i+' Category', y=i,data=data.sort_values(by=i), ax = t)
+    t.legend(ncol=3)
+    t.set_title(i)
+sns.despine()
+
