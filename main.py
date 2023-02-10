@@ -93,4 +93,28 @@ for i,t in zip(ys,[a,b,c,d]):
     t.legend(ncol=3)
     t.set_title(i)
 sns.despine()
+col = ['WRI','Exposure','Vulnerability','Susceptibility','Lack of Coping Capabilities',' Lack of Adaptive Capacities']
+col_hue = ['WRI Category','Exposure Category','Vulnerability Category','Susceptibility Category',None,None]
+fig, axs = plt.subplots(nrows=2, ncols=3, figsize=(20, 9))
+plt.subplots_adjust(hspace=0.5)
+for ax,i,j in zip(axs.ravel(),col,col_hue):
+    sns.lineplot(data=data.sort_values(by='Year'), x="Year", y=i, hue=j,markers=True,dashes=True,ci='sd',ax=ax)
+    ax.set_title(i)
+    ax.tick_params(labelrotation=90)
+    sns.despine()
+    if(i!='WRI'):
+        ax.legend().set_visible(False)
+    else:
+        ax.legend(ncol=3)
+sns.despine()
+ys = ['WRI','Exposure','Vulnerability','Susceptibility']
+fig, ((a,b),(c,d)) = plt.subplots (2, 2, figsize=(16, 12))
+for i,t in zip(ys,[a,b,c,d]):
+    sns.swarmplot(x='Year', y=i, hue=i+' Category',data=data.sort_values(by='Year'), ax = t)
+    if(i=='WRI'):
+        t.legend(ncol=3)
+    else:
+        t.legend().set_visible(False)
+    t.set_title(i)
+sns.despine()
 
